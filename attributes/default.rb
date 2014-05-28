@@ -222,3 +222,5 @@ when 'debian'
     'package_options' => "-o Dpkg::Options::='--force-confold' -o Dpkg::Options::='--force-confdef'"
   }
 end
+
+default['openstack']['identity']['platform']['service_provider'] = node['openstack']['common']['platform']['service_provider']
