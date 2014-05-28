@@ -27,6 +27,7 @@ end
 
 identity_admin_endpoint = endpoint 'identity-admin'
 identity_endpoint = endpoint 'identity-api'
+identity_internal_endpoint = endpoint 'identity-api-internal'
 auth_uri = ::URI.decode identity_admin_endpoint.to_s
 
 # FIXME(invsblduck): RuboCop gating was enabled mid-review;
@@ -110,11 +111,11 @@ openstack_identity_register 'Register Identity Service' do
 end
 
 node.set['openstack']['identity']['adminURL'] = identity_admin_endpoint.to_s
-node.set['openstack']['identity']['internalURL'] = identity_endpoint.to_s
+node.set['openstack']['identity']['internalURL'] = identity_internal_endpoint.to_s
 node.set['openstack']['identity']['publicURL'] = identity_endpoint.to_s
 
 Chef::Log.info "Keystone AdminURL: #{identity_admin_endpoint.to_s}"
-Chef::Log.info "Keystone InternalURL: #{identity_endpoint.to_s}"
+Chef::Log.info "Keystone InternalURL: #{identity_internal_endpoint.to_s}"
 Chef::Log.info "Keystone PublicURL: #{identity_endpoint.to_s}"
 
 openstack_identity_register 'Register Identity Endpoint' do
