@@ -193,7 +193,8 @@ when 'fedora', 'rhel' # :pragma-foodcritic: ~FC024 - won't fix this
     'keystone_client_packages' => ['python-keystoneclient'],
     'keystone_service' => 'openstack-keystone',
     'keystone_process_name' => 'keystone-all',
-    'package_options' => ''
+    'package_options' => '',
+    'service_provider' => Chef::Provider::Service::Redhat
   }
 when 'suse'
   default['openstack']['identity']['user'] = 'openstack-keystone'
@@ -206,7 +207,8 @@ when 'suse'
     'keystone_client_packages' => ['python-keystoneclient'],
     'keystone_service' => 'openstack-keystone',
     'keystone_process_name' => 'keystone-all',
-    'package_options' => ''
+    'package_options' => '',
+    'service_provider' => Chef::Provider::Service::Redhat
   }
 when 'debian'
   default['openstack']['identity']['user'] = 'keystone'
@@ -220,5 +222,9 @@ when 'debian'
     'keystone_service' => 'keystone',
     'keystone_process_name' => 'keystone-all',
     'package_options' => "-o Dpkg::Options::='--force-confold' -o Dpkg::Options::='--force-confdef'"
+    'service_provider' => Chef::Provider::Service::Debian
   }
+  if node['platform'] == 'ubuntu' && node['platform_version'] == '14.04'
+         default['openstack']['identity']['platform']['service_provider'] = Chef::Provider::Service::Upstart
+  end
 end

@@ -65,7 +65,7 @@ end
 service 'keystone' do
   service_name platform_options['keystone_service']
   supports status: true, restart: true
-
+  provider platform_options['service_provider']
   action [:enable]
 
   notifies :run, 'execute[Keystone: sleep]', :immediately
