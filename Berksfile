@@ -1,3 +1,3 @@
-metadata
+source "http://berkshelf-api.tools.springer-sbm.com"
 
-cookbook "openstack-common", chef_api: :config
+metadata
